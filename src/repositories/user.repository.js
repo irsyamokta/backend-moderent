@@ -21,7 +21,6 @@ export const getUsers = async ({ page = 1, limit = 10, search = "", role = "" })
                 email: true,
                 role: true,
                 imageUrl: true,
-                status: true,
             }
         }),
         prisma.user.count({ where })
@@ -35,32 +34,10 @@ export const getUsers = async ({ page = 1, limit = 10, search = "", role = "" })
     };
 };
 
-export const getUserById = async (userId, selectedField = null) => {
-    return prisma.user.findUnique({
-        where: { id: userId },
-        select: selectedField || undefined
-    });
-};
+export const getUserById = async (id, selectedField = null) => prisma.user.findUnique({ where: { id }, select: selectedField });
 
 export const getUserByEmail = async (email) => prisma.user.findUnique({ where: { email } });
 
-export const updateUser = async (userId, data) => {
-    return prisma.user.update({
-        where: { id: userId },
-        data,
-        select: { id: true, name: true, email: true, role: true, imageUrl: true },
-    });
-};
+export const updateUser = async (id, data) => prisma.user.update({ where: { id }, data });
 
-export const updateUserRole = async (userId, data) => {
-    return prisma.user.update({
-        where: { id: userId },
-        data
-    });
-}
-
-export const deleteUser = async (userId) => {
-    return prisma.user.delete({
-        where: { id: userId }
-    });
-};
+export const deleteUser = async (id) => prisma.user.delete({ where: { id } });
