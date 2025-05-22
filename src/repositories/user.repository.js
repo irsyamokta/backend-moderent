@@ -19,6 +19,7 @@ export const getUsers = async ({ page = 1, limit = 10, search = "", role = "" })
                 id: true,
                 name: true,
                 email: true,
+                phone: true,
                 role: true,
                 imageUrl: true,
             }
