@@ -20,6 +20,18 @@ export const registerValidator = (data) => {
                 "any.required": "Email tidak boleh kosong!"
             }),
 
+        phone: Joi.string()
+            .min(10)
+            .max(15)
+            .regex(/^[0-9]{10,15}$/)
+            .required()
+            .messages({
+                "string.min": "Nomor telepon minimal harus 10 karakter!",
+                "string.max": "Nomor telepon maksimal 15 karakter!",
+                "string.pattern.base": "Nomor telepon harus berupa angka!",
+                "any.required": "Nomor telepon tidak boleh kosong!"
+            }),
+
         password: Joi.string()
             .min(8)
             .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
@@ -29,22 +41,6 @@ export const registerValidator = (data) => {
                 "string.min": "Password minimal harus 8 karakter!",
                 "string.pattern.base": "Password harus mengandung huruf, angka, dan karakter spesial!",
                 "any.required": "Password tidak boleh kosong!"
-            }),
-
-        birthDate: Joi.date().iso()
-            .required()
-            .messages({
-                "any.required": "Tanggal lahir tidak boleh kosong!"
-            }),
-
-        gender: Joi.string()
-            .valid("MALE", "FEMALE", "OTHER")
-            .required()
-            .empty("")
-            .messages({
-                "any.required": "Jenis kelamin tidak boleh kosong!",
-                "any.only": "Jenis kelamin tidak valid! Harus MALE, FEMALE, atau OTHER.",
-                "string.empty": "Jenis kelamin tidak boleh kosong!"
             }),
 
         passwordConfirmation: Joi.string()
