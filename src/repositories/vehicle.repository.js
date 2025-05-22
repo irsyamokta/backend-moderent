@@ -18,6 +18,7 @@ export const getVehicles = async ({ page = 1, limit = 10, search = "", status = 
             include: {
                 brand: {
                     select: {
+                        id: true,
                         name: true
                     }
                 }
