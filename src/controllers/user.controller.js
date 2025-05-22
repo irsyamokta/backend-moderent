@@ -2,8 +2,13 @@ import * as userService from "../services/user.service.js";
 
 export const getUsers = async (req, res, next) => {
     try {
-        const { page = 1, limit = 10, search = "", role = "" } = req.query;
-        const params = { page, limit, search, role };
+        const { page = "1", limit = "10", search = "", role = "" } = req.query;
+        const params = {
+            page: parseInt(page),
+            limit: parseInt(limit),
+            search,
+            role
+        };
 
         const users = await userService.getUsers(params);
 
