@@ -38,8 +38,8 @@ model Vehicle {
   name          String
   type          String
   price         Int
-  status        String
-  year          DateTime
+  status        Status   @default(Available)
+  year          Int
   seat          Int
   horse_power   Int
   description   String   @db.LongText
@@ -68,4 +68,10 @@ model Session {
 enum Role {
   ADMIN
   CLIENT
+}
+
+enum Status {
+  Available
+  Unavailable
+  Rented
 }
