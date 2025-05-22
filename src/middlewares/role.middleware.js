@@ -17,7 +17,9 @@ export const hasRole = (...roles) => {
             });
         }
 
-        if (!roles.includes(user.role) || user.status !== "APPROVED") {
+        console.log(user.role);
+
+        if (!roles.includes(user.role)) {
             return res.status(403).json({
                 status: "forbidden",
                 message: `Anda tidak memiliki akses sebagai ${roles.join(" atau ")}`
