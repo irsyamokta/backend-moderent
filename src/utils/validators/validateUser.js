@@ -22,24 +22,6 @@ export const updateProfileValidator = (data) => {
                 "any.required": "Email tidak boleh kosong!"
             }),
 
-        birthDate: Joi.date().iso()
-            .required()
-            .messages({
-                "any.required": "Tanggal lahir tidak boleh kosong!",
-                "date.base": "Tanggal lahir harus berupa tanggal yang valid!",
-                "date.format": "Format tanggal lahir tidak valid! Gunakan format YYYY-MM-DD.",
-            }),
-
-        gender: Joi.string()
-            .valid("MALE", "FEMALE")
-            .required()
-            .empty("")
-            .messages({
-                "any.required": "Jenis kelamin tidak boleh kosong!",
-                "any.only": "Jenis kelamin tidak valid! Harus MALE, FEMALE, atau OTHER.",
-                "string.empty": "Jenis kelamin tidak boleh kosong!"
-            }),
-
         phone: Joi.string()
             .min(10)
             .max(15)
@@ -51,29 +33,6 @@ export const updateProfileValidator = (data) => {
                 "string.max": "Nomor telepon maksimal 15 karakter!",
                 "any.required": "Nomor telepon tidak boleh kosong!"
             }),
-
-        instagram: Joi.string()
-            .empty("")
-            .required()
-            .messages({
-                "any.required": "Instagram tidak boleh kosong!"
-            }),
-    });
-
-    return schema.validate(data, { abortEarly: false });
-};
-
-export const requestRoleValidator = (data) => {
-    const schema = Joi.object({
-        roleRequested: Joi.string()
-            .valid("JURNALIS", "EDITOR")
-            .required()
-            .empty("")
-            .messages({
-                "any.required": "Role tidak boleh kosong!",
-                "any.only": "Role tidak valid! Harus JURNALIS atau EDITOR",
-                "string.empty": "Role tidak boleh kosong!"
-            })
     });
 
     return schema.validate(data, { abortEarly: false });
