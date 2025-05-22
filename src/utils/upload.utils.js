@@ -9,25 +9,10 @@ export const uploadImage = async (file, category) => {
         throw new BadRequestError("Hanya file gambar yang diperbolehkan!", ["Upload image error"]);
     }
 
-    let folder = "images";
+    let folder = "moderent";
     if (category === "profile") folder = `${folder}/profile`;
-    if (category === "news") folder = `${folder}/news`;
-
-    const result = await uploadToCloudinary(file, folder);
-    return {
-        fileUrl: result.secure_url,
-        publicId: result.public_id
-    };
-};
-export const uploadPDF = async (file) => {
-    if (!file) return { message: "No file uploaded" };
-
-    const allowedImageTypes = ["application/pdf"];
-    if (!allowedImageTypes.includes(file.mimetype)) {
-        throw new BadRequestError("Hanya file pdf yang diperbolehkan!", ["Upload pdf error"]);
-    }
-
-    let folder = "portfolio";
+    if (category === "brands") folder = `${folder}/brands`;
+    if (category === "vehicles") folder = `${folder}/vehicles`;
 
     const result = await uploadToCloudinary(file, folder);
     return {
