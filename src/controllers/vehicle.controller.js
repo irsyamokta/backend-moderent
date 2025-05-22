@@ -3,8 +3,13 @@ import * as vehicleService from "../services/vehicle.service.js";
 
 export const getVehicles = async (req, res, next) => {
     try {
-        const { page = 1, limit = 10, search = "", status = "" } = req.query;
-        const params = { page, limit, search, status };
+        const { page = "1", limit = "10", search = "", status = "" } = req.query;
+        const params = { 
+            page: parseInt(page), 
+            limit: parseInt(limit), 
+            search, 
+            status 
+        };
 
         const vehicles = await vehicleService.getVehicles(params);
         res.status(200).json(vehicles);
