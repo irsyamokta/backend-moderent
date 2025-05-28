@@ -1,12 +1,13 @@
 import prisma from "../config/database.js";
 
-export const getVehicles = async ({ page = 1, limit = 10, search = "", status = "" }) => {
+export const getVehicles = async ({ page = 1, limit = 10, search = "", status = "", type = "" }) => {
     const skip = (page - 1) * limit;
 
     const where = {
         AND: [
-            search ? { name: { contains: search, mode: "insensitive" } } : {},
-            status ? { status } : {}
+            search ? { name: { contains: search } } : {},
+            status ? { status } : {},
+            type ? { type } : {}
         ]
     };
 
@@ -19,7 +20,8 @@ export const getVehicles = async ({ page = 1, limit = 10, search = "", status = 
                 brand: {
                     select: {
                         id: true,
-                        name: true
+                        name: true,
+                        imageUrl: true
                     }
                 }
             }
@@ -35,7 +37,7 @@ export const getVehicles = async ({ page = 1, limit = 10, search = "", status = 
     };
 };
 
-export const getVehicleById = async (id) => prisma.vehicle.findUnique({ where: { id }, include: { brand: { select: { name: true } } } });
+export const getVehicleById = async (id) => prisma.vehicle.findUnique({ where: { id }, include: { brand: { select: { name: true, imageUrl: true } } } });
 
 export const createVehicle = async (data) => prisma.vehicle.create({ data });
 
