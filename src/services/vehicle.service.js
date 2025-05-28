@@ -3,8 +3,8 @@ import { vehicleValidator } from "../utils/validators/index.js";
 import { BadRequestError, NotFoundError } from "../utils/errors.utils.js";
 import { uploadImage, deleteImageFromCloudinary } from "../utils/upload.utils.js";
 
-export const getVehicles = async ({ page = 1, limit = 10, search = "", status = "" }) => {
-    const vehicles = await vehicleRepository.getVehicles({ page, limit, search, status });
+export const getVehicles = async ({ page = 1, limit = 10, search = "", status = "", type = "" }) => {
+    const vehicles = await vehicleRepository.getVehicles({ page, limit, search, status, type });
 
     return vehicles;
 };
