@@ -26,8 +26,18 @@ export const refreshTokens = (user) => {
     return generateTokens(user);
 };
 
-export const cookieOptions = () => ({
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
-});
+export const cookieOptions = () => {
+    if (process.env.NODE_ENV === "production") {
+        return {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None", // production biasanya cross-site https
+        };
+    } else {
+        return {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax", // lebih longgar di development localhost tanpa https
+        };
+    }
+};
