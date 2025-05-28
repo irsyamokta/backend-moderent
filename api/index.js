@@ -17,14 +17,20 @@ import passwordRoutes from "../src/routes/password.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const allowedOrigins = process.env.ALLOWED_ORIGINS || "*";
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (/^http:\/\/localhost:\d+$/.test(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+};
 
 app.set('trust proxy', 1);
 
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
-}));
+app.use(cors(corsOptions));
 
 app.use(morgan("dev"));
 app.use(helmet());
