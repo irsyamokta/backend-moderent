@@ -18,13 +18,7 @@ import passwordRoutes from "../src/routes/password.route.js";
 const app = express();
 const PORT = process.env.PORT || 8080;
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-        if (/^http:\/\/localhost:\d+$/.test(origin)) {
-            return callback(null, true);
-        }
-        return callback(new Error("Not allowed by CORS"));
-    },
+    origin: true,
     credentials: true,
 };
 
@@ -57,6 +51,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on PORT ${PORT}`);
 });
