@@ -22,14 +22,18 @@ export const updateUser = async (userId, data, file) => {
     if (!user) throw new NotFoundError("User not found");
 
     const { name, email, phone } = data;
-    const existingUser = await userRepository.getUserByEmail(email);
-    if (existingUser && existingUser.id !== userId) throw new BadRequestError("Email already exists");
+    if (email !== user.email) {
+        const existingUser = await userRepository.getUserByEmail(email);
+        if (existingUser) {
+            throw new BadRequestError("Email already exists");
+        }
+    }
 
     let fileUrl = user.imageUrl;
     let publicId = user.publicId;
 
-    if(file){
-        if(publicId){
+    if (file) {
+        if (publicId) {
             await deleteImageFromCloudinary(publicId);
         }
         const { fileUrl: newFileUrl, publicId: newPublicId } = await uploadImage(file, "users");
