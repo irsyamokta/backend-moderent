@@ -4,7 +4,7 @@ import { BadRequestError } from "./errors.utils.js";
 export const uploadImage = async (file, category) => {
     if (!file) return { message: "No file uploaded" };
 
-    const allowedImageTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const allowedImageTypes = ["image/png", "image/jpeg"];
     if (!allowedImageTypes.includes(file.mimetype)) {
         throw new BadRequestError("Hanya file gambar yang diperbolehkan!", ["Upload image error"]);
     }
